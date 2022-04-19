@@ -26,13 +26,21 @@ function formEvent(){
     const dropDown = document.querySelector('select')
 
     form.addEventListener('submit', (e) => {
+
         e.preventDefault();
-        searchForFilter(dropDown.value, capitalizeFirstLetter(input.value));
+
+        if (dropDown.value !== 'none'){
+            searchForFilter(dropDown.value, capitalizeFirstLetter(input.value));
+        } else {
+            window.alert('select a search option');
+        }
+
     })
 }
 
 //applies filter to fetch and searches for input
 function searchForFilter(filter, input){
+
     fetchStuff(filter)
     .then(data => {
         if (data.next !== null){
@@ -41,11 +49,16 @@ function searchForFilter(filter, input){
                     printResult(el)
                 }
             })
+
             num++
             searchForFilter(filter, input)
+
         } else {
+
+            window.alert('try using a different search option');
             num = 1
             return; 
+
         }
     })
 }
@@ -60,6 +73,7 @@ const capitalizeFirstLetter = (string) => {
     }).join(' ');
 
     return newString
+
 }
 
 //adds search results to screen
