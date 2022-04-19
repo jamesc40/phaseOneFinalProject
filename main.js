@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // formEvent();
+    formEvent();
     // searchForFilter('vehicles', 'C-9979 landing craft');
-    console.log(capitalizeFirstLetter('sand crawler'));
+    // capitalizeFirstLetter('sand crawler');
 })
 
 const url = "https://swapi.dev/api/";
@@ -56,10 +56,12 @@ const searchForFilter = (filter, input) => {
 
 const capitalizeFirstLetter = (string) => {
     let words = string.split(' ');
-    words.map((word) => {
+
+    let newString = words.map((word) => {
         return word[0].toUpperCase() + word.substring(1);
     }).join(' ');
-    return words
+
+    return newString
 }
 
 function formEvent(){
@@ -69,8 +71,8 @@ function formEvent(){
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log(capitalizeFirstLetter(input.value))
-        // searchForFilter(dropDown.value, capitalizeFirstLetter(input.value));
+        // capitalizeFirstLetter(input.value)
+        searchForFilter(dropDown.value, capitalizeFirstLetter(input.value));
     })
 }
 
