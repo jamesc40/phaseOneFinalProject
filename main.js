@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     formEvent();
     makeSlideShow();
+    thumbsWork();
     // searchForFilter('vehicles', 'C-9979 landing craft');
     // capitalizeFirstLetter('sand crawler');
 })
@@ -116,7 +117,6 @@ function makeSlideShow(){
     const left = document.querySelector('#left');
     const right = document.querySelector('#right');
 
-
     left.addEventListener('click', (e) => {
         if(i !== 0){
 
@@ -154,22 +154,32 @@ function makeSlideShow(){
         }
 
     })
+    // let div = document.querySelector('.container');
+    // div.addEventListener('keypress', (e) => {
+    //     if()
+    })
 }
 
 
 
-// Votes
+function thumbsWork(){
     let thumbUp = document.getElementById("thumbUp")
     let counterUp = document.getElementById("votesUp")
-    thumbUp.addEventListener("click", e =>{
-        counterUp.innerText = parseInt(counterUp.innerText) + 1
-    })
-
     let thumbDown = document.getElementById("thumbDown")
     let counterDown = document.getElementById("votesDown")
-    thumbDown.addEventListener("click", e=>{
-        counterDown.innerText = parseInt(counterDown.innerText) -1
+
+    thumbUp.addEventListener("click", (e) =>{
+        counterUp.textContent = parseInt(counterUp.textContent) + 1
     })
+
+    thumbDown.addEventListener("click", (e) =>{
+        counterDown.textContent = parseInt(counterDown.textContent) -1
+    })
+
+}
+
+
+
 
     
 
