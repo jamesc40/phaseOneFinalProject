@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     formEvent();
+    makeSlideShow();
     // searchForFilter('vehicles', 'C-9979 landing craft');
     // capitalizeFirstLetter('sand crawler');
 })
@@ -12,6 +13,7 @@ let traitResults = '';
 const body = document.querySelector('body');
 const results = document.querySelector('#search-results');
 const searchTitle = document.querySelector('#search-name');
+let currentImage = '';
 
 //fetches fro  API
 function fetchStuff(filter){
@@ -98,3 +100,61 @@ function printResult(result){
         }
     }
 }
+
+function makeSlideShow(){
+    
+    let image = document.querySelectorAll('.images');
+    let i = 0;
+    console.log(image)
+
+    currentImage = image[0]
+    currentImage.removeAttribute('class')
+
+
+    // let [anh, esb, roj, tpm, aoc, ros ] = image;
+
+    const left = document.querySelector('#left');
+    const right = document.querySelector('#right');
+
+
+    left.addEventListener('click', (e) => {
+        if(i !== 0){
+
+            currentImage.classList.add('images'); 
+
+            currentImage = image[i - 1];
+            currentImage.removeAttribute('class')   
+            i--
+    
+        } else {
+
+            i = image.length - 1;
+            currentImage.classList.add('images'); 
+            currentImage = image[i];
+            currentImage.removeAttribute('class')   
+        
+        }
+
+    })
+
+    right.addEventListener('click', (e) => {
+
+        if(i !== image.length - 1){
+            currentImage.classList.add('images'); 
+
+            currentImage = image[i + 1];
+            currentImage.removeAttribute('class')   
+            i++
+
+        } else {
+            i = 0;
+            currentImage.classList.add('images');
+            currentImage = image[i];
+            currentImage.removeAttribute('class');
+        }
+
+
+
+    })
+}
+
