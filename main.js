@@ -71,8 +71,9 @@ function formEvent(){
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        // capitalizeFirstLetter(input.value)
+        capitalizeFirstLetter(input.value)
         searchForFilter(dropDown.value, capitalizeFirstLetter(input.value));
     })
 }
 
+console.log('test');
