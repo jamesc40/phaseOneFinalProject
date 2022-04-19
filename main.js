@@ -153,8 +153,6 @@ function makeSlideShow(){
             currentImage.removeAttribute('class');
         }
 
-
-
     })
 }
 
