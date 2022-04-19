@@ -156,3 +156,21 @@ function makeSlideShow(){
     })
 }
 
+
+
+// Votes
+    let thumbUp = document.getElementById("thumbUp")
+    let counterUp = document.getElementById("votesUp")
+    thumbUp.addEventListener("click", e =>{
+        counterUp.innerText = parseInt(counterUp.innerText) + 1
+    })
+
+    let thumbDown = document.getElementById("thumbDown")
+    let counterDown = document.getElementById("votesDown")
+    thumbDown.addEventListener("click", e=>{
+        counterDown.innerText = parseInt(counterDown.innerText) -1
+    })
+
+    
+
+   

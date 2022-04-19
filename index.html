@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Wars</title>
     <link rel="stylesheet" href="style.css">
+    <!-- font for thumbs up button -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- font for thumbs up button -->
     <script src="main.js" defer></script>
 
 </head>
 <body>
-    <h1></h1>
+    <!-- images -->
     <!-- Serj -->
-    <div>
+    <div class="container">
         <img class="images"
          src="images/a-new-hope.jpg" 
          alt="a-new-hope"
@@ -37,11 +40,32 @@
          src="images/revenge-of-the-sith.jpg" 
          alt="revenge-of-the-sith"
          />
+    </div>
+    <!-- buttons -->
+    <div class = "button"></div>
         <button id="left">&larr;</button>
         <button id="right">&rarr;</button>
     </div>
-    <!-- James -->
+
+    <!-- thumb -->
+    <div class ="vote">
+        <i id = "thumbUp" class="fa fa-thumbs-up"></i>
+        <i id = "thumbDown"class='fa fa-thumbs-down'></i>
+
+    </div>
+
+    <!-- vote counter -->
     <div>
+        <p id = "votesUp">0</p>
+        <p id = "votesDown">0</p>
+    </div>
+
+
+
+
+    
+    <!-- James -->
+    <div class = "form">
         <form action="submit">
             <input type="text">
             <select name="" id="">
@@ -58,6 +82,5 @@
             <h3 id="search-name"></h3>
         </div>
     </div>
-
 </body>
 </html>
