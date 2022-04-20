@@ -36,15 +36,18 @@ const fetchDb = (id) => {
 }
 
 function fetchVotes(id){
+
     fetchDb(id)
     .then(data => {
-        // console.log(data)
+
         counterUp.textContent = data.votesUp;
         counterDown.textContent = data.votesDown;
     })
+
 }
 
 function patchVotes(id){
+
     fetch(`${dbUrl}/${id}`, {
         method: 'PATCH',
         headers: {
@@ -54,11 +57,13 @@ function patchVotes(id){
             'votesUp': counterUp.textContent,
             "votesDown": counterDown.textContent
         })
+
     })
 }
 
 //makes form work
 function formEvent(){
+
     const form = document.querySelector('form');
     const input = document.querySelector('input')
     const dropDown = document.querySelector('select')
@@ -81,7 +86,7 @@ function searchForFilter(filter, input){
     fetchApi(filter)
     .then(data => {
         if (data.next !== null){
-            // console.log(data.results.find(el => el.name === input));
+
             let finder = data.results.find(el => el.name === input)
             if (finder !== undefined){
                 printResult(finder);
@@ -97,6 +102,7 @@ function searchForFilter(filter, input){
             return; 
 
         }
+
     })
 }
 //capitalizes first lettter regardless of spaces or capitalization
@@ -107,9 +113,8 @@ const capitalizeFirstLetter = (string) => {
     newString = words.map((word) => {
         return word[0].toUpperCase() + word.substring(1).toLowerCase();
     }).join(' ');
-
+    
     return newString
-
 }
 
 //adds search results to screen
