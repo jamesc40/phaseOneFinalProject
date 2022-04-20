@@ -2,11 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     formEvent();
     makeSlideShow();
     thumbsWork();
-    // searchForFilter('vehicles', 'C-9979 landing craft');
-    // capitalizeFirstLetter('sand crawler');
 })
 
 const url = "https://swapi.dev/api/";
+const dbUrl = 'http://localhost:3000/images'
+
 let num = 1;
 const pageNum = (num) =>  `?page=${num}`
 let traitResults = '';
@@ -14,12 +14,47 @@ let traitResults = '';
 const body = document.querySelector('body');
 const results = document.querySelector('#search-results');
 const searchTitle = document.querySelector('#search-name');
-let currentImage = '';
 
-//fetches fro  API
-function fetchStuff(filter){
+let currentImage = '';
+let image = document.querySelectorAll('.images');
+let i = 0;
+
+let counterUp = document.querySelector("#votesUp")
+let counterDown = document.querySelector("#votesDown")
+
+
+//fetches from  API
+function fetchApi(filter){
     return fetch(`${url}/${filter}/${pageNum(num)}`)
     .then(res => res.json())
+}
+
+//fetches to db.json
+const fetchDb = (id) => {
+    return fetch(`${dbUrl}/${id}`)
+    .then(res => res.json());
+}
+
+function fetchVotes(id){
+    fetchDb(id)
+    .then(data => {
+        // console.log(data)
+        counterUp.textContent = data.votesUp;
+        counterDown.textContent = data.votesDown;
+    })
+}
+
+function patchVotes(id){
+    fetch(`${dbUrl}/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            'votesUp': counterUp.textContent,
+            "votesDown": counterDown.textContent
+        })
+    })
 }
 
 //makes form work
@@ -41,17 +76,16 @@ function formEvent(){
     })
 }
 
-//applies filter to fetch and searches for input
 function searchForFilter(filter, input){
 
-    fetchStuff(filter)
+    fetchApi(filter)
     .then(data => {
         if (data.next !== null){
-            data.results.forEach(el => {
-                if(el.name === input){
-                    printResult(el)
-                }
-            })
+            // console.log(data.results.find(el => el.name === input));
+            let finder = data.results.find(el => el.name === input)
+            if (finder !== undefined){
+                printResult(finder);
+            } 
 
             num++
             searchForFilter(filter, input)
@@ -65,7 +99,6 @@ function searchForFilter(filter, input){
         }
     })
 }
-
 //capitalizes first lettter regardless of spaces or capitalization
 const capitalizeFirstLetter = (string) => {
 
@@ -104,81 +137,60 @@ function printResult(result){
 
 function makeSlideShow(){
     
-    let image = document.querySelectorAll('.images');
-    let i = 0;
-    console.log(image)
-
     currentImage = image[0]
     currentImage.removeAttribute('class')
-
-
-    // let [anh, esb, roj, tpm, aoc, ros ] = image;
 
     const left = document.querySelector('#left');
     const right = document.querySelector('#right');
 
-    left.addEventListener('click', (e) => {
-        if(i !== 0){
-
-            currentImage.classList.add('images'); 
-
-            currentImage = image[i - 1];
-            currentImage.removeAttribute('class')   
-            i--
+    document.onkeydown = (e) =>{
+        patchVotes(i + 1);
+        if(e.keyCode === 37){
+            if(i !== 0){
+                currentImage.classList.add('images'); 
+                currentImage = image[i - 1];
+                currentImage.removeAttribute('class')   
+                i--
+            } else {
+                i = image.length - 1;
+                currentImage.classList.add('images'); 
+                currentImage = image[i];
+                currentImage.removeAttribute('class')   
+            } 
+        } else if (e.keyCode === 39) {
+            if(i !== image.length - 1){
+                currentImage.classList.add('images'); 
     
-        } else {
+                currentImage = image[i + 1];
+                currentImage.removeAttribute('class')   
+                i++
+            } else {
+                i = 0;
+                currentImage.classList.add('images');
+                currentImage = image[i];
+                currentImage.removeAttribute('class');
+            }
 
-            i = image.length - 1;
-            currentImage.classList.add('images'); 
-            currentImage = image[i];
-            currentImage.removeAttribute('class')   
-        
         }
-
-    })
-
-    right.addEventListener('click', (e) => {
-
-        if(i !== image.length - 1){
-            currentImage.classList.add('images'); 
-
-            currentImage = image[i + 1];
-            currentImage.removeAttribute('class')   
-            i++
-
-        } else {
-            i = 0;
-            currentImage.classList.add('images');
-            currentImage = image[i];
-            currentImage.removeAttribute('class');
-        }
-
-    })
-    // let div = document.querySelector('.container');
-    // div.addEventListener('keypress', (e) => {
-    //     if()
-    })
+        fetchVotes(i + 1);
+    }
 }
-
 
 
 function thumbsWork(){
-    let thumbUp = document.getElementById("thumbUp")
-    let counterUp = document.getElementById("votesUp")
-    let thumbDown = document.getElementById("thumbDown")
-    let counterDown = document.getElementById("votesDown")
 
-    thumbUp.addEventListener("click", (e) =>{
+    let thumbUp = document.getElementById("thumbUp")
+    let thumbDown = document.getElementById("thumbDown")
+
+    thumbUp.addEventListener("click", (e) => {
         counterUp.textContent = parseInt(counterUp.textContent) + 1
     })
 
-    thumbDown.addEventListener("click", (e) =>{
-        counterDown.textContent = parseInt(counterDown.textContent) -1
+    thumbDown.addEventListener("click", (e) => {
+        counterDown.textContent = parseInt(counterDown.textContent) + 1
     })
 
 }
-
-
 
 
     

@@ -1,0 +1,40 @@
+{
+  "images": [
+    {
+      "id": 1,
+      "name": "a-new-hope.jpg",
+      "votesUp": "3",
+      "votesDown": "0"
+    },
+    {
+      "id": 2,
+      "name": "empire-strikes-back.jpg",
+      "votesUp": "0",
+      "votesDown": "0"
+    },
+    {
+      "id": 3,
+      "name": "return-of-the-jedi.jpg",
+      "votesUp": "0",
+      "votesDown": "0"
+    },
+    {
+      "id": 4,
+      "name": "the-phantom-menace.jpg",
+      "votesUp": "0",
+      "votesDown": "3"
+    },
+    {
+      "id": 5,
+      "name": "attack-of-the-clones.jpg",
+      "votesUp": "0",
+      "votesDown": "0"
+    },
+    {
+      "id": 6,
+      "name": "revenge-of-the-sith.jpg",
+      "votesUp": 0,
+      "votesDown": 0
+    }
+  ]
+}
