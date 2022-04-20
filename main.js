@@ -1,8 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-    formEvent();
-    makeSlideShow();
-    thumbsWork();
-})
 
 const url = "https://swapi.dev/api/";
 const dbUrl = 'http://localhost:3000/images'
@@ -22,10 +17,13 @@ let i = 0;
 let counterUp = document.querySelector("#votesUp")
 let counterDown = document.querySelector("#votesDown")
 
+const searchForm = document.querySelector('form');
+const input = document.querySelector('input')
+const dropDown = document.querySelector('select')
 
 //fetches from  API
-function fetchApi(filter){
-    return fetch(`${url}/${filter}/${pageNum(num)}`)
+function fetchApi(filter, page){
+    return fetch(`${url}/${filter}/${pageNum(page)}`)
     .then(res => res.json())
 }
 
@@ -42,6 +40,7 @@ function fetchVotes(id){
 
         counterUp.textContent = data.votesUp;
         counterDown.textContent = data.votesDown;
+
     })
 
 }
@@ -64,13 +63,11 @@ function patchVotes(id){
 //makes form work
 function formEvent(){
 
-    const form = document.querySelector('form');
-    const input = document.querySelector('input')
-    const dropDown = document.querySelector('select')
+    let button = document.querySelector('#search-btn');
 
-    form.addEventListener('submit', (e) => {
+    button.addEventListener('click', (e) => {
 
-        e.preventDefault();
+        // e.preventDefault();
 
         if (dropDown.value !== 'none'){
             searchForFilter(dropDown.value, capitalizeFirstLetter(input.value));
@@ -83,7 +80,7 @@ function formEvent(){
 
 function searchForFilter(filter, input){
 
-    fetchApi(filter)
+    fetchApi(filter, num)
     .then(data => {
         if (data.next !== null){
 
@@ -96,11 +93,8 @@ function searchForFilter(filter, input){
             searchForFilter(filter, input)
 
         } else {
-
-            window.alert('try using a different search option');
             num = 1
             return; 
-
         }
 
     })
@@ -145,8 +139,8 @@ function makeSlideShow(){
     currentImage = image[0]
     currentImage.removeAttribute('class')
 
-    const left = document.querySelector('#left');
-    const right = document.querySelector('#right');
+    // const left = document.querySelector('#left');
+    // const right = document.querySelector('#right');
 
     document.onkeydown = (e) =>{
         patchVotes(i + 1);
@@ -192,12 +186,61 @@ function thumbsWork(){
     })
 
     thumbDown.addEventListener("click", (e) => {
-        counterDown.textContent = parseInt(counterDown.textContent) + 1
+        counterDown.textContent =  parseInt(counterDown.textContent) + 1
     })
 
 }
 
+const randomNumber = (max = 82) => {
+   return Math.floor(Math.random() * max)
+}
 
-    
+function loadQuestion(){
+    fetch(`${url}/people/${randomNumber()}`)
+    .then(res => res.json())
+    .then(data => printQuestion(data))
+}
 
-   
+function quizButton (){
+    let button = document.querySelector('#randomizer');
+    button.addEventListener('click', () => loadQuestion())
+}
+
+function printQuestion(character){
+    let p = document.querySelector('#question-area');
+    let form = document.querySelector('#question-form'); 
+    let check = document.querySelector('#answer');
+
+    let key = pickQuestion()
+    let answer = character[key];
+
+    console.log(answer);
+
+    p.textContent = `What is ${character.name}'s ${key}?`
+
+    form.addEventListener('submit', (e) => {
+
+        e.preventDefault();
+        if (check.value.length === 0) return
+        console.log(check.value)
+
+        if (check.value === answer){
+            p.textContent = 'The Force is with you!'
+        } else {
+            return
+        }
+
+        form.reset();
+    })
+}
+
+function pickQuestion () {
+    const options = ['hair_color', 'skin_color', 'eye_color', 'gender'];
+    return options[randomNumber(options.length)]
+}
+
+formEvent();
+makeSlideShow();
+thumbsWork();
+loadQuestion();
+quizButton();

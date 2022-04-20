@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <!-- font for thumbs up button -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="main.js" defer></script>
+    <script defer src="main.js"></script>
 
 </head>
 <body>
@@ -55,6 +55,18 @@
     </div>
 
     <!-- James -->
+    <div id="question-container">
+        <p id="question-area"></p>
+        <button id="randomizer">Generate Question this button does</button>
+        <br> <br>
+        <form id="question-form"action="submit">
+            <input id="answer"type="text">
+            <input type="button" value="submit">
+        </form>
+    </div>
+
+
+    <br>
     <div class = "form">
         <form action="submit">
             <input type="text">
@@ -67,6 +79,7 @@
                 <option value="films">Films</option>
                 <option value="species">Species</option>
             </select>
+            <input id="search-btn"type="button"value="search">
         </form>
         <div id="search-results">
             <h3 id="search-name"></h3>

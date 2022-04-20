@@ -3,13 +3,13 @@
     {
       "id": 1,
       "name": "a-new-hope.jpg",
-      "votesUp": "2",
-      "votesDown": "2"
+      "votesUp": "0",
+      "votesDown": "0"
     },
     {
       "id": 2,
       "name": "empire-strikes-back.jpg",
-      "votesUp": "0",
+      "votesUp": "16",
       "votesDown": "0"
     },
     {
@@ -22,19 +22,19 @@
       "id": 4,
       "name": "the-phantom-menace.jpg",
       "votesUp": "0",
-      "votesDown": "3"
+      "votesDown": "23"
     },
     {
       "id": 5,
       "name": "attack-of-the-clones.jpg",
-      "votesUp": "0",
-      "votesDown": "0"
+      "votesUp": "3",
+      "votesDown": "10"
     },
     {
       "id": 6,
       "name": "revenge-of-the-sith.jpg",
-      "votesUp": 0,
-      "votesDown": 0
+      "votesUp": "3",
+      "votesDown": "0"
     }
   ]
 }
