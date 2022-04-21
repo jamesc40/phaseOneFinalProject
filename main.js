@@ -3,7 +3,7 @@ const url = "https://swapi.dev/api/";
 const dbUrl = 'http://localhost:3000/images'
 
 let num = 1;
-const pageNum = (num) =>  `?page=${num}`
+const pageNum = (someNum) =>  `?page=${someNum}`
 let traitResults = '';
 
 const body = document.querySelector('body');
@@ -17,12 +17,14 @@ let i = 0;
 let counterUp = document.querySelector("#votesUp")
 let counterDown = document.querySelector("#votesDown")
 
-const searchForm = document.querySelector('form');
-const input = document.querySelector('input')
-const dropDown = document.querySelector('select')
+// const searchForm = document.querySelector('#search-form');
+// const input = document.querySelectorAll('input')[2];
+// console.log(input)
+// const dropDown = document.querySelector('#drop-down-select')
 
 //fetches from  API
 function fetchApi(filter, page){
+    console.log(filter, page);
     return fetch(`${url}/${filter}/${pageNum(page)}`)
     .then(res => res.json())
 }
@@ -60,84 +62,11 @@ function patchVotes(id){
     })
 }
 
-//makes form work
-function formEvent(){
-
-    let button = document.querySelector('#search-btn');
-
-    button.addEventListener('click', (e) => {
-
-        // e.preventDefault();
-
-        if (dropDown.value !== 'none'){
-            searchForFilter(dropDown.value, capitalizeFirstLetter(input.value));
-        } else {
-            window.alert('select a search option');
-        }
-
-    })
-}
-
-function searchForFilter(filter, input){
-
-    fetchApi(filter, num)
-    .then(data => {
-        if (data.next !== null){
-
-            let finder = data.results.find(el => el.name === input)
-            if (finder !== undefined){
-                printResult(finder);
-            } 
-
-            num++
-            searchForFilter(filter, input)
-
-        } else {
-            num = 1
-            return; 
-        }
-
-    })
-}
-//capitalizes first lettter regardless of spaces or capitalization
-const capitalizeFirstLetter = (string) => {
-
-    let words = string.split(' ');
-
-    newString = words.map((word) => {
-        return word[0].toUpperCase() + word.substring(1).toLowerCase();
-    }).join(' ');
-    
-    return newString
-}
-
-//adds search results to screen
-function printResult(result){
-    let trait = '';
-    let count = 0;
-    for (let key in result){
-        count++
-        if (key === 'name'){
-            searchTitle.textContent = result.name;
-        } else {
-            for(let i = 0; i < count; i++){
-                if (document.querySelectorAll('.traits')[i] === undefined){
-                    trait = document.createElement('p')
-                    trait.classList = 'traits';
-                    results.append(trait);
-                } else {
-                    trait = document.querySelectorAll('.traits')[i];
-                }
-            }
-            trait.textContent = `${key}: ${result[key]}`
-        }
-    }
-}
-
 function makeSlideShow(){
     
     currentImage = image[0]
     currentImage.removeAttribute('class')
+    fetchVotes(i + 1);
 
     // const left = document.querySelector('#left');
     // const right = document.querySelector('#right');
@@ -159,7 +88,6 @@ function makeSlideShow(){
         } else if (e.keyCode === 39) {
             if(i !== image.length - 1){
                 currentImage.classList.add('images'); 
-    
                 currentImage = image[i + 1];
                 currentImage.removeAttribute('class')   
                 i++
@@ -239,7 +167,7 @@ function pickQuestion () {
     return options[randomNumber(options.length)]
 }
 
-formEvent();
+// formEvent();
 makeSlideShow();
 thumbsWork();
 loadQuestion();

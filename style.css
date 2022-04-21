@@ -1,8 +1,15 @@
-
-
 body{
     width: 1000px;
     height: 1000px;
+    background-image: url('images/star-wars-backgrounds-14.jpeg'); 
+    background-size: cover;
+
+    color: white;
+    /* text-align: center; */
+}
+
+#text-area, h1{
+    background-color: black;
 }
 
 .images {
@@ -19,4 +26,9 @@ body{
 
 #thumbUp, #thumbDown{
     font-size: 50px;
+}
+
+.vote{
+    display: flex;
+    /* justify-content: space-around; */
 }
