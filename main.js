@@ -6,10 +6,6 @@ let num = 1;
 const pageNum = (someNum) =>  `?page=${someNum}`
 let traitResults = '';
 
-const body = document.querySelector('body');
-const results = document.querySelector('#search-results');
-const searchTitle = document.querySelector('#search-name');
-
 let currentImage = '';
 let image = document.querySelectorAll('.images');
 let i = 0;
@@ -17,19 +13,11 @@ let i = 0;
 let counterUp = document.querySelector("#votesUp")
 let counterDown = document.querySelector("#votesDown")
 
-// const searchForm = document.querySelector('#search-form');
-// const input = document.querySelectorAll('input')[2];
-// console.log(input)
-// const dropDown = document.querySelector('#drop-down-select')
-
-//fetches from  API
 function fetchApi(filter, page){
-    console.log(filter, page);
     return fetch(`${url}/${filter}/${pageNum(page)}`)
     .then(res => res.json())
 }
 
-//fetches to db.json
 const fetchDb = (id) => {
     return fetch(`${dbUrl}/${id}`)
     .then(res => res.json());
@@ -65,11 +53,9 @@ function patchVotes(id){
 function makeSlideShow(){
     
     currentImage = image[0]
-    currentImage.removeAttribute('class')
-    fetchVotes(i + 1);
+    currentImage.removeAttribute('class')   
 
-    // const left = document.querySelector('#left');
-    // const right = document.querySelector('#right');
+    fetchVotes(i + 1);
 
     document.onkeydown = (e) =>{
         patchVotes(i + 1);
@@ -78,6 +64,7 @@ function makeSlideShow(){
                 currentImage.classList.add('images'); 
                 currentImage = image[i - 1];
                 currentImage.removeAttribute('class')   
+                currentImage.id = 'active-image';
                 i--
             } else {
                 i = image.length - 1;
@@ -135,6 +122,7 @@ function quizButton (){
 }
 
 function printQuestion(character){
+
     let p = document.querySelector('#question-area');
     let form = document.querySelector('#question-form'); 
     let check = document.querySelector('#answer');
@@ -155,6 +143,7 @@ function printQuestion(character){
         if (check.value === answer){
             p.textContent = 'The Force is with you!'
         } else {
+            p.textContent = 'Try not. Do… or do not. There is no try.'
             return
         }
 
@@ -167,7 +156,6 @@ function pickQuestion () {
     return options[randomNumber(options.length)]
 }
 
-// formEvent();
 makeSlideShow();
 thumbsWork();
 loadQuestion();

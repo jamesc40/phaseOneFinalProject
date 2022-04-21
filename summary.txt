@@ -1,0 +1,24 @@
+patchVotes
+    patches the vote count with the updated counterUp and counterDown text content
+
+makeSlideShow
+    sets the currentImage variable and removes the class attribute and the corresponding display none style allowing it to be visible on the page
+
+    We then add a onkeydown event listener this event listener first patches the current vote count to our json server then checks to see if the key pressed is either the left or right arrow key. if it's the left arrow we go back in images and forwards if it's the right. this is done by adding a classlist and removing that value from the previous image so that it is no longer visible on the page
+
+    lastly we fetch the votes of the currentImage which updates the vote count text
+
+the thumbsWork function adds a click event to both thumbs which adds 1 to the current textcontent by parseing it as an int
+
+loadQuestion fetches a random person by passing in the randomNumber function as it's ID 
+
+the randomNumber function has a default argument set to the max amount of people in our api and returns a random number between that and 1
+
+the quizButton function adds a click event that runs loadQuestion again when clicked
+
+the print question function takes one argument that is passed in from the load question function. that argument is the character that we build the question from. 
+
+we then change the text content to the question that is assigned the characters name and the key that we are asking the user for's value
+
+we then add an event listener to the form that has a guard clause that returns if no value is submitted and changes the text content where the question was depending on if the answer was corrent or not
+    

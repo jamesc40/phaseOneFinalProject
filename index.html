@@ -9,11 +9,10 @@
     <!-- font for thumbs up button -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script defer src="main.js"></script>
-
 </head>
 <body>
     <h1>Star Wars</h1>
-    <div class="container">
+    <div id="image-container">
         <img class="images"
          src="images/a-new-hope.jpg" 
          alt="a-new-hope"
@@ -47,19 +46,17 @@
             <i id = "thumbDown"class='fa fa-thumbs-down'></i>
             <p id = "votesDown">0</p>
         </div>
-
         <div id="question-container">
             <p id="question-area"></p>
             <button id="randomizer">Generate Question this button does</button>
-            <br> <br>
+        </div>
+        <div id="form-container">
             <form id="question-form"action="submit">
                 <input id="answer"type="text">
                 <input type="button" value="submit">
             </form>
         </div>
     </div>
-
-    <br>
 
 </body>
 </html>
