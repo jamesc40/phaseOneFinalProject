@@ -10,9 +10,9 @@ makeSlideShow
 
 the thumbsWork function adds a click event to both thumbs which adds 1 to the current textcontent by parseing it as an int
 
-loadQuestion fetches a random person by passing in the randomNumber function as it's ID 
-
 the randomNumber function has a default argument set to the max amount of people in our api and returns a random number between that and 1
+
+loadQuestion fetches a random person by passing in the randomNumber function as it's ID 
 
 the quizButton function adds a click event that runs loadQuestion again when clicked
 

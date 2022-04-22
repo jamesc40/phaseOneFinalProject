@@ -7,11 +7,16 @@ const pageNum = (someNum) =>  `?page=${someNum}`
 let traitResults = '';
 
 let currentImage = '';
-let image = document.querySelectorAll('.images');
+const image = document.querySelectorAll('.images');
 let i = 0;
 
-let counterUp = document.querySelector("#votesUp")
-let counterDown = document.querySelector("#votesDown")
+const counterUp = document.querySelector("#votesUp")
+const counterDown = document.querySelector("#votesDown")
+
+const p = document.querySelector('#question-area');
+const form = document.querySelector('#question-form'); 
+const check = document.querySelector('#answer');
+
 
 function fetchApi(filter, page){
     return fetch(`${url}/${filter}/${pageNum(page)}`)
@@ -36,7 +41,6 @@ function fetchVotes(id){
 }
 
 function patchVotes(id){
-
     fetch(`${dbUrl}/${id}`, {
         method: 'PATCH',
         headers: {
@@ -51,7 +55,6 @@ function patchVotes(id){
 }
 
 function makeSlideShow(){
-    
     currentImage = image[0]
     currentImage.removeAttribute('class')   
 
@@ -64,7 +67,6 @@ function makeSlideShow(){
                 currentImage.classList.add('images'); 
                 currentImage = image[i - 1];
                 currentImage.removeAttribute('class')   
-                currentImage.id = 'active-image';
                 i--
             } else {
                 i = image.length - 1;
@@ -84,7 +86,6 @@ function makeSlideShow(){
                 currentImage = image[i];
                 currentImage.removeAttribute('class');
             }
-
         }
         fetchVotes(i + 1);
     }
@@ -92,9 +93,8 @@ function makeSlideShow(){
 
 
 function thumbsWork(){
-
-    let thumbUp = document.getElementById("thumbUp")
-    let thumbDown = document.getElementById("thumbDown")
+    let thumbUp = document.querySelector("#thumbUp")
+    let thumbDown = document.querySelector("#thumbDown")
 
     thumbUp.addEventListener("click", (e) => {
         counterUp.textContent = parseInt(counterUp.textContent) + 1
@@ -103,7 +103,6 @@ function thumbsWork(){
     thumbDown.addEventListener("click", (e) => {
         counterDown.textContent =  parseInt(counterDown.textContent) + 1
     })
-
 }
 
 const randomNumber = (max = 82) => {
@@ -122,11 +121,6 @@ function quizButton (){
 }
 
 function printQuestion(character){
-
-    let p = document.querySelector('#question-area');
-    let form = document.querySelector('#question-form'); 
-    let check = document.querySelector('#answer');
-
     let key = pickQuestion()
     let answer = character[key];
 
@@ -135,17 +129,12 @@ function printQuestion(character){
     p.textContent = `What is ${character.name}'s ${key}?`
 
     form.addEventListener('submit', (e) => {
-
         e.preventDefault();
+
         if (check.value.length === 0) return
         console.log(check.value)
 
-        if (check.value === answer){
-            p.textContent = 'The Force is with you!'
-        } else {
-            p.textContent = 'Try not. Do… or do not. There is no try.'
-            return
-        }
+        check.value === answer ? p.textContent = 'The Force is with you!' : p.textContent = 'Try not. Do… or do not. There is no try.'
 
         form.reset();
     })
