@@ -26,6 +26,7 @@ function fetchApi(filter, page){
 const fetchDb = (id) => {
     return fetch(`${dbUrl}/${id}`)
     .then(res => res.json());
+    
 }
 
 function fetchVotes(id){

@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "a-new-hope.jpg",
-      "votesUp": "9",
+      "votesUp": "0",
       "votesDown": "0"
     },
     {
@@ -15,13 +15,13 @@
     {
       "id": 3,
       "name": "return-of-the-jedi.jpg",
-      "votesUp": "3",
+      "votesUp": "9",
       "votesDown": "0"
     },
     {
       "id": 4,
       "name": "the-phantom-menace.jpg",
-      "votesUp": "0",
+      "votesUp": "4",
       "votesDown": "23"
     },
     {
